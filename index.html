@@ -6,9 +6,98 @@
         <title>Mi Página Web</title>
     </head>
     <body>
-        <h1>Istea</h1>
-        <p>Esta es una página de ejemplo creada para demostrar el uso de HTML.</p>
-        <img width="150px" src="./img/html.png" alt="HTML Logo">
-        
+        <header></header>
+        <main>
+            <aside>
+                menu filtros
+            </aside>
+            <section>
+                Productos
+                <ul>
+                    <li>
+                        <div>
+                            <img src="./img/producto1.jpg" alt="Producto 1" width="100px">
+                            <p>Producto 1</p>
+                            <p>Precio: $10.00</p>
+                            <button>Añadir al carrito</button>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <img src="./img/producto1.jpg" alt="Producto 1" width="100px">
+                            <p>Producto 2</p>
+                            <p>Precio: $20.00</p>
+                            <button>Añadir al carrito</button>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <img src="./img/producto1.jpg" alt="Producto 1" width="100px">
+                            <p>Producto 3</p>
+                            <p>Precio: $14.00</p>
+                            <button>Añadir al carrito</button>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <article>
+                    <h1>Istea</h1>
+                <p>Esta es una página de ejemplo creada para demostrar el uso de HTML.</p>
+                <img width="150px" src="./img/html.png" alt="HTML Logo">
+                
+                <table border="1" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Edad</th>
+                            <th>Ciudad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="2">Ana</td>
+                            <td>25</td>
+                            <td>Madrid</td>
+                        </tr>
+                        <tr>
+                            <td>30</td>
+                            <td>Barcelona</td>
+                        </tr>
+                        <tr>
+                            <td>Pedro</td>
+                            <td colspan="3">22</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                </br>
+
+                <form action="" method="get">
+                    <label for="name">Nombre:</label>
+                    <input type="text" id="name" name="name" required>
+                    <br>
+                    <label for="email">Correo Electrónico:</label>
+                    <input type="email" id="email" name="email" required>
+                    <br>
+                    <input type="submit" value="Enviar">
+                </form>
+
+                <audio controls>
+                    <source src="foo.opus" type="audio/ogg; codecs=opus" />
+                    <source src="foo.ogg" type="audio/ogg; codecs=vorbis" />
+                    <source src="foo.mp3" type="audio/mpeg" />
+                </audio>
+            </section>
+        </main>
+        <footer>
+            <p>© 2025 Mi Página Web</p>
+        </footer>
+                </article>
+            <section>
+
+            </section>
+                
+
     </body>
 </html>
