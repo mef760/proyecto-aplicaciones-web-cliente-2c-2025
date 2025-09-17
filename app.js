@@ -49,5 +49,47 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     });
 
+
+    const objeto = { 
+        nombre: "Monitor", 
+        precio: 300,
+        devolverNombre: function() {
+            console.log(this.precio);
+        }
+    }
+
+    objeto.devolverNombre();
+
+
+    const arreglo = [1,2,3,4,5];
+    const nuevoArreglo = [];
+    arreglo.forEach( (numero) => {
+        nuevoArreglo.push(numero + 5);
+    } );
+
+    console.log("nuevo arreglo usando foreach: ", nuevoArreglo);
+
+    const nuevoArregloMap = arreglo.map( (numero) => numero + 5 );
+
+    console.log("nuevo arreglo usando map: ", nuevoArregloMap);
+
+    const arregloFiltrado = arreglo.filter( (numero) => numero > 3 );
+
+    console.log("arreglo filtrado: ", arregloFiltrado);
+
+    const alumnos = [
+        { nombre: "Juan", edad: 25, dni: "12345678"},
+        { nombre: "Ana", edad: 20, dni: "42345578" },
+        { nombre: "Carlos", edad: 30, dni: "32345678" },
+        { nombre: "Maria", edad: 22, dni: "35434343" }
+    ];
+
+    const elemento = alumnos.find( (alumno) => alumno.dni === "32345678" );
+
+    console.log("elemento encontrado: ", elemento);
+
+    const totalEdades = alumnos.reduce( (total, alumno) => total + alumno.edad, 0 );
+
+    console.log("total edades: ", totalEdades);  
 });
 
