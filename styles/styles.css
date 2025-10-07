@@ -35,6 +35,11 @@ nav div {
     justify-content: center;
 }
 
+.nav-search{
+    text-align: center;
+    margin-bottom: 10px;
+}
+
 main {
     display: flex;
     flex-direction: row;

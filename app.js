@@ -1,95 +1,96 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const products = document.querySelector('.product-container'); // elemento padre
+    // data
+    const listProducts = [
+        {name: 'Monitor 25" Samsung', price: 100, img: './img/monitor.jpg', category: 'monitor'},
+        {name: 'Monitor 22" Philips', price: 200, img: './img/monitor.jpg', category: 'monitor'},
+        {name: 'Mouse Microsft', price: 300, img: './img/monitor.jpg', category: 'mouse'},
+        {name: 'Mouse Logitech', price: 400, img: './img/monitor.jpg', category: 'mouse'},
+        {name: 'Amd Ryzen 7 7600', price: 500, img: './img/monitor.jpg', category: 'computer'},   
+    ];
+    // dom elements
+    const productsDomElements = document.querySelector('.product-container'); // elemento padre
+    const inputSearch = document.getElementById('input-search-products');
+    const categoryLinks = document.querySelectorAll('.category-product-filter');
 
-    // cre los elementos
-    const newProduct = document.createElement('div'); 
-    newProduct.setAttribute("class","product-item");
-    /*newProduct.innerHTML = `
-        <a href="./product-detail.html">
-            <div class="fondo-rojo">
-                <img src="./img/monitor.jpg" alt="Producto Nuevo" width="100px">
-                <p>Producto Nuevo</p>
-                <p>Precio: $100.00</p>
-            </div>
-        </a>
-    `;
-    */
-
-    const newAnchor = document.createElement('a');
-    newAnchor.setAttribute("href","./product-detail.html");
-
-    const newDiv = document.createElement('div');
-    newDiv.setAttribute("class","fondo-rojo");
-
-    const newImg = document.createElement('img');
-    newImg.setAttribute("src","./img/monitor.jpg");
-    newImg.setAttribute("alt","Producto Nuevo");
-    newImg.setAttribute("width","100px");
-
-    newDiv.appendChild(newImg);
-    newAnchor.appendChild(newDiv);
-    newProduct.appendChild(newAnchor);
-
-    const texto = "Nuevo Producto";
-    const texto2 = 'Nuevo Producto' + ' ' + texto;
-    const texto3 = `Nuevo Producto.  ${texto}`;
-
-    console.log("texto con comillas", texto2);
-    console.log("texto con backticks", texto3);
-
-    // agrego el contenido nuevo al DOM
-    products.appendChild(newProduct);
-
-    const buttons = document.querySelectorAll('button');
-    console.log(buttons);
-
-    buttons.forEach((button) => {
-        button.addEventListener('click', ()=> {
-            alert('Hiciste click en el boton');
+    categoryLinks.forEach( link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const category = event.target.innerText.toLowerCase();
+            const productsFiltered = filterProductsByCategory(category);
+            renderProducts(productsFiltered);
         })
     });
 
+    // funciones
+    function createProduct(product){
+        const newProduct = document.createElement('div'); 
+        newProduct.setAttribute("class","product-item");
 
-    const objeto = { 
-        nombre: "Monitor", 
-        precio: 300,
-        devolverNombre: function() {
-            console.log(this.precio);
-        }
+        const newAnchor = document.createElement('a');
+        newAnchor.setAttribute("href","./product-detail.html");
+
+        const newDiv = document.createElement('div');
+        newDiv.setAttribute("class","fondo-rojo");
+
+        const newImg = document.createElement('img');
+        newImg.setAttribute("src", product.img);
+        newImg.setAttribute("alt", product.name);
+        newImg.setAttribute("width","100px");
+
+        const newPName = document.createElement('p');
+        newPName.setAttribute("class","product-name");
+        newPName.innerText = product.name;
+
+        const newPPrice = document.createElement('p');
+        newPPrice.setAttribute("class","product-price");
+        newPPrice.innerText = `Precio: $${product.price}.00`;
+
+        const buttonAddToCart = document.createElement('button');
+        buttonAddToCart.innerText = "Agregar al carrito";
+        buttonAddToCart.addEventListener('click', (event) => {
+            event.preventDefault(); // para que no navegue al detalle del producto
+            console.log(`agregando al carrito: ${product.name}`);
+        });
+
+        // estructura
+
+        newDiv.appendChild(newImg);
+        newDiv.appendChild(newPPrice);
+        newDiv.appendChild(newPName);
+        newDiv.appendChild(buttonAddToCart);
+        newAnchor.appendChild(newDiv);
+        newProduct.appendChild(newAnchor);
+
+        return newProduct;
     }
 
-    objeto.devolverNombre();
+    function filterProducts(text){
+        const productsfiltered = listProducts.filter( product => product.name.toLowerCase().includes(text.toLowerCase()));
+        return productsfiltered;
+    }
 
+    function filterProductsByCategory(category){
+        const productsfiltered = listProducts.filter( product => product.category === category);
+        return productsfiltered;
+    }
 
-    const arreglo = [1,2,3,4,5];
-    const nuevoArreglo = [];
-    arreglo.forEach( (numero) => {
-        nuevoArreglo.push(numero + 5);
-    } );
+    function renderProducts(products){
+        productsDomElements.innerHTML = '';
+        products.forEach(product => {
+            const newProduct = createProduct(product);
+            productsDomElements.appendChild(newProduct);
+        });
+    }
 
-    console.log("nuevo arreglo usando foreach: ", nuevoArreglo);
+    // events
+    inputSearch.addEventListener('keyup', (event) => {
+        const text = event.target.value;
+        const productsFiltered = filterProducts(text);
+        renderProducts(productsFiltered);
+    });
 
-    const nuevoArregloMap = arreglo.map( (numero) => numero + 5 );
+    // inicializacion
+    renderProducts(listProducts);
 
-    console.log("nuevo arreglo usando map: ", nuevoArregloMap);
-
-    const arregloFiltrado = arreglo.filter( (numero) => numero > 3 );
-
-    console.log("arreglo filtrado: ", arregloFiltrado);
-
-    const alumnos = [
-        { nombre: "Juan", edad: 25, dni: "12345678"},
-        { nombre: "Ana", edad: 20, dni: "42345578" },
-        { nombre: "Carlos", edad: 30, dni: "32345678" },
-        { nombre: "Maria", edad: 22, dni: "35434343" }
-    ];
-
-    const elemento = alumnos.find( (alumno) => alumno.dni === "32345678" );
-
-    console.log("elemento encontrado: ", elemento);
-
-    const totalEdades = alumnos.reduce( (total, alumno) => total + alumno.edad, 0 );
-
-    console.log("total edades: ", totalEdades);  
 });
 
