@@ -1,12 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // data
-    const listProducts = [
-        {name: 'Monitor 25" Samsung', price: 100, img: './img/monitor.jpg', category: 'monitor'},
-        {name: 'Monitor 22" Philips', price: 200, img: './img/monitor.jpg', category: 'monitor'},
-        {name: 'Mouse Microsft', price: 300, img: './img/monitor.jpg', category: 'mouse'},
-        {name: 'Mouse Logitech', price: 400, img: './img/monitor.jpg', category: 'mouse'},
-        {name: 'Amd Ryzen 7 7600', price: 500, img: './img/monitor.jpg', category: 'computer'},   
-    ];
     // dom elements
     const productsDomElements = document.querySelector('.product-container'); // elemento padre
     const inputSearch = document.getElementById('input-search-products');
@@ -89,8 +81,27 @@ document.addEventListener('DOMContentLoaded', () => {
         renderProducts(productsFiltered);
     });
 
-    // inicializacion
-    renderProducts(listProducts);
+    async function getProductsFromApi() {
+        try {
+            const response = await fetch('https://dummyjson.com/products/category/fragrances');
+            const data = await response.json();
+            console.log('products from API', data);
+            // imprimir productos
+            const mappedProducts = data.products.map( product => ({
+                name: product.title,
+                price: product.price,
+                img: product.images[0],
+                category: product.category
+            }));
+            console.log('mapped products', mappedProducts);
+            // imprimir productos
+            renderProducts(mappedProducts);
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    };
+
+    getProductsFromApi();
 
 });
 
