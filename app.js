@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     newProduct.className = "product-item";
 
     const newAnchor = document.createElement('a');
-    newAnchor.href = "./product-detail.html";
+    newAnchor.href = `./product-detail.html?code=${encodeURIComponent(product.id)}`;
 
     const newDiv = document.createElement('div');
     newDiv.className = "fondo-rojo";
@@ -59,7 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
     buttonAddToCart.innerText = "Agregar al carrito";
     buttonAddToCart.addEventListener('click', (e) => {
       e.preventDefault();
-      console.log(`Agregando al carrito: ${product.name}`);
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.push(product);
+      localStorage.setItem('cart', JSON.stringify(cart));
     });
 
     newDiv.append(newImg, newPName, newPPrice, buttonAddToCart);
@@ -92,7 +94,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
       const data = await response.json();
+      console.log('Airtable data:', data);
       listProducts = data.records.map(item => ({
+        id: item.id,
         name: item.fields.Name,
         price: item.fields.Price,
         img: item.fields.Img,
