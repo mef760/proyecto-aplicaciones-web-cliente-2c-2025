@@ -96,6 +96,31 @@ footer {
   color: #fff;
 }
 
+#toast-carrito {
+  min-width: 250px;
+  background-color: #114500;
+  position: fixed;
+  color: white;
+  right: 1rem;
+  bottom: 5rem;
+  display: none;
+  animation: aparecer 3s forwards;
+  gap: 1rem;
+  align-items: center;
+  padding: 10px;
+  border-radius: 12%;
+}
+
+#cart-count {
+  position: absolute;
+}
+
+@keyframes aparecer {
+  0% {opacity: 0;}
+  10%, 80% {opacity: 1;}
+
+}
+
 /* 📱 Responsive */
 @media (max-width: 768px) {
   main {
